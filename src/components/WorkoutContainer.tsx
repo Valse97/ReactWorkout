@@ -6,15 +6,17 @@ import {
   WorkoutExerciseTime,
 } from "../interface/WorkoutInfo";
 import PrintExercise from "./PrintExercise";
-import { schedule } from "../data/exercises";
+import Button from "./Button";
 
-interface WorkoutContainerProps {}
+interface WorkoutContainerProps {
+  schedule: WorkoutExercise[];
+}
 
 const _workoutInfo: WorkoutInfo = {
   currentExerciseIndex: 0,
   currentExercise: null,
   currentExerciseTimes: [],
-  exercises: schedule.Friday,
+  exercises: [],
   getExercise(index: number) {
     return this.exercises[index];
   },
@@ -39,7 +41,7 @@ const _workoutInfo: WorkoutInfo = {
         timeSet.push({
           seconds: exercise.restSeconds,
           done: false,
-          isWork: true,
+          isWork: false,
         } as WorkoutExerciseTime);
     }
 
@@ -47,13 +49,20 @@ const _workoutInfo: WorkoutInfo = {
   },
 };
 
-const WorkoutContainer = (props: WorkoutContainerProps) => {
+const WorkoutContainer = ({ schedule }: WorkoutContainerProps) => {
+  _workoutInfo.exercises = schedule;
   const [workoutInfo, setWorkoutInfo] = useState<WorkoutInfo>(_workoutInfo);
-  let background = workoutInfo.isRunning
-    ? workoutInfo.isResting
-      ? "cyan"
-      : "lightgreen"
-    : "orange";
+
+  const nextExercise = workoutInfo.getNextExercise();
+  const currentExerciseSet = workoutInfo.currentExerciseTimes?.find(
+    (x) => !x.done
+  );
+  const background =
+    currentExerciseSet !== undefined
+      ? !currentExerciseSet?.isWork
+        ? "cyan"
+        : "lightgreen"
+      : "orange";
 
   function startWorkout() {
     setWorkoutInfo((prevWorkoutInfo) => ({
@@ -105,8 +114,6 @@ const WorkoutContainer = (props: WorkoutContainerProps) => {
     }
   }
 
-  const nextExercise = workoutInfo.getNextExercise();
-
   let nextExerciseTag = <></>;
   if (nextExercise != null) {
     nextExerciseTag = (
@@ -120,10 +127,6 @@ const WorkoutContainer = (props: WorkoutContainerProps) => {
     );
   }
 
-  const currentExerciseSet = workoutInfo.currentExerciseTimes?.find(
-    (x) => x.done === false
-  );
-
   return (
     <div
       style={{
@@ -135,10 +138,21 @@ const WorkoutContainer = (props: WorkoutContainerProps) => {
     >
       {!workoutInfo.isRunning ? (
         <>
-          <button onClick={startWorkout}>Start</button>
+          <Button onClick={startWorkout}>Start</Button>
         </>
       ) : (
         <>
+          {workoutInfo.currentExerciseTimes?.length &&
+            workoutInfo.currentExerciseTimes?.length > 1 && (
+              <p>
+                {
+                  workoutInfo.currentExerciseTimes?.filter(
+                    (x) => !x.done && x.isWork
+                  ).length
+                }{" "}
+                Remaining
+              </p>
+            )}
           <Timer
             onFinish={onFinish}
             exerciseSet={currentExerciseSet as WorkoutExerciseTime}
@@ -148,7 +162,6 @@ const WorkoutContainer = (props: WorkoutContainerProps) => {
             isMain={true}
           />
           {nextExerciseTag}
-          <button onClick={nextWorkout}>Next</button>
         </>
       )}
     </div>
