@@ -39,12 +39,6 @@ export const schedules = [
     Name: "Davide - Lunedì",
     Exercises: [
       {
-        name: "Planche Dream Machine",
-        workSeconds: 15,
-        restSeconds: 45,
-        times: 5,
-      },
-      {
         name: "Warm up",
         workSeconds: 60 * 5,
         restSeconds: 0,
@@ -52,15 +46,61 @@ export const schedules = [
         exercises: ["Esercizi per riscaldarsi (polsi, spalle, gomiti)"],
       },
       {
-        name: "Superset",
+        name: "Tuck front lever",
+        workSeconds: 10,
+        restSeconds: 50,
+        times: 5,
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
+      {
+        name: "Superset +6Kg",
         workSeconds: 60 * 2,
         restSeconds: 0,
         times: 10,
-        exercises: ["Chinup 6rep", "Handstand Pushup to wall 4rep"],
+        exercises: ["- 6rep Pullup", "- 8rep Dip", "- 15rep Squat"],
       },
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 5, times: 1 },
-
+      {
+        name: "Superset +6Kg",
+        workSeconds: 60 * 1,
+        restSeconds: 0,
+        times: 10,
+        exercises: ["- 6rep Pike pushup", "- 10rep Jump Squat"],
+      },
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 5, times: 1 },
+      {
+        name: "Pushup +6Kg 25rep",
+        workSeconds: 60,
+        restSeconds: 0,
+        times: 5,
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 4, times: 1 },
+      {
+        name: "Frontlever Dream Machine",
+        workSeconds: 20,
+        restSeconds: 40,
+        times: 5,
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
+      {
+        name: "Planche Dream Machine",
+        workSeconds: 15,
+        restSeconds: 45,
+        times: 5,
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 4, times: 1 },
+      {
+        name: "Pullup x6",
+        workSeconds: 60,
+        restSeconds: 0,
+        times: 10,
+      },
+      {
+        name: "Dip x10",
+        workSeconds: 60,
+        restSeconds: 0,
+        times: 10,
+      },
     ],
   },
   {
