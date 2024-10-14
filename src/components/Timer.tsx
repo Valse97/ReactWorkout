@@ -63,8 +63,13 @@ const Timer: React.FC<TimerProps> = ({ exerciseSet, onFinish }) => {
       <audio ref={audioRef} src="/src/assets/audio/timer.mp3" preload="auto" />
       <p>{formatSeconds(seconds)}</p>
 
-      <Button onClick={nextWorkout}>Next</Button>
-      <Button onClick={togglePlay}>{isInPause ? "Play" : "Pause"}</Button>
+      <div className="ml-4">
+        <Button onClick={togglePlay}>{isInPause ? "Play" : "Pause"}</Button>
+      </div>
+
+      <div className="ml-4 mt-4">
+        <Button onClick={nextWorkout}>Skip</Button>
+      </div>
     </div>
   );
 };
