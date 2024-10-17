@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/ReactWorkout/static/css/main.8c45091b.css",
-    "main.js": "/ReactWorkout/static/js/main.348f3e94.js",
+    "main.css": "/ReactWorkout/static/css/main.881fb4cf.css",
+    "main.js": "/ReactWorkout/static/js/main.2ea282ce.js",
     "static/js/885.85e68ec3.chunk.js": "/ReactWorkout/static/js/885.85e68ec3.chunk.js",
     "static/js/453.5b2eae68.chunk.js": "/ReactWorkout/static/js/453.5b2eae68.chunk.js",
     "static/media/timer.mp3": "/ReactWorkout/static/media/timer.b459f9647e80a6861f93.mp3",
     "index.html": "/ReactWorkout/index.html",
-    "main.8c45091b.css.map": "/ReactWorkout/static/css/main.8c45091b.css.map",
-    "main.348f3e94.js.map": "/ReactWorkout/static/js/main.348f3e94.js.map",
+    "main.881fb4cf.css.map": "/ReactWorkout/static/css/main.881fb4cf.css.map",
+    "main.2ea282ce.js.map": "/ReactWorkout/static/js/main.2ea282ce.js.map",
     "885.85e68ec3.chunk.js.map": "/ReactWorkout/static/js/885.85e68ec3.chunk.js.map",
     "453.5b2eae68.chunk.js.map": "/ReactWorkout/static/js/453.5b2eae68.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8c45091b.css",
-    "static/js/main.348f3e94.js"
+    "static/css/main.881fb4cf.css",
+    "static/js/main.2ea282ce.js"
   ]
 }
