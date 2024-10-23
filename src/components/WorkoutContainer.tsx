@@ -1,4 +1,12 @@
 import { useState } from "react";
+import {
+  IoPlayOutline,
+  IoPauseOutline,
+  IoPlayBackOutline,
+  IoPlaySkipBackOutline,
+  IoPlaySkipForwardOutline,
+  IoPlayForwardOutline,
+} from "react-icons/io5";
 import Timer from "./Timer";
 import {
   WorkoutInfo,
@@ -12,6 +20,8 @@ interface WorkoutContainerProps {
   schedule: WorkoutExercise[];
 }
 
+const iconSize = 50;
+
 const _workoutInfo: WorkoutInfo = {
   currentExerciseIndex: 0,
   currentExercise: null,
@@ -19,6 +29,11 @@ const _workoutInfo: WorkoutInfo = {
   exercises: [],
   getExercise(index: number) {
     return this.exercises[index];
+  },
+  getPrevExercise() {
+    return this.currentExerciseIndex > 0
+      ? this.getExercise(this.currentExerciseIndex - 1)
+      : null;
   },
   getNextExercise() {
     return this.exercises.length > this.currentExerciseIndex
@@ -37,7 +52,10 @@ const _workoutInfo: WorkoutInfo = {
           done: false,
           isWork: true,
         } as WorkoutExerciseTime);
-      if (exercise.restSeconds > 0)
+      if (
+        exercise.restSeconds > 0 &&
+        (exercise.workSeconds == 0 || i < exercise.times - 1)
+      )
         timeSet.push({
           seconds: exercise.restSeconds,
           done: false,
@@ -53,16 +71,11 @@ const WorkoutContainer = ({ schedule }: WorkoutContainerProps) => {
   _workoutInfo.exercises = schedule;
   const [workoutInfo, setWorkoutInfo] = useState<WorkoutInfo>(_workoutInfo);
 
+  const prevExercise = workoutInfo.getPrevExercise();
   const nextExercise = workoutInfo.getNextExercise();
   const currentExerciseSet = workoutInfo.currentExerciseTimes?.find(
     (x) => !x.done
   );
-  const background =
-    currentExerciseSet !== undefined
-      ? !currentExerciseSet?.isWork
-        ? "cyan"
-        : "lightgreen"
-      : "orange";
 
   function startWorkout() {
     setWorkoutInfo((prevWorkoutInfo) => ({
@@ -73,6 +86,20 @@ const WorkoutContainer = ({ schedule }: WorkoutContainerProps) => {
         prevWorkoutInfo.getCurrentExercise()
       ),
     }));
+  }
+
+  function prevWorkout() {
+    if (prevExercise != null) {
+      setWorkoutInfo((prevWorkoutInfo) => ({
+        ...prevWorkoutInfo,
+        currentExerciseIndex: prevWorkoutInfo.currentExerciseIndex - 1,
+        currentExercise: prevWorkoutInfo.getPrevExercise(),
+        currentExerciseTimes: prevWorkoutInfo.getExerciseTimes(
+          prevWorkoutInfo.getPrevExercise() as WorkoutExercise
+        ),
+      }));
+    } else {
+    }
   }
   function nextWorkout() {
     if (nextExercise != null) {
@@ -88,24 +115,53 @@ const WorkoutContainer = ({ schedule }: WorkoutContainerProps) => {
       console.log("Workout finished!");
     }
   }
-  function changeTimer(isWork: boolean) {
-    console.log("changeTimer");
-    setWorkoutInfo({
-      ...workoutInfo,
-      isResting: !isWork,
-    });
+  function handleFinish() {
+    skip(false);
   }
-  function onFinish() {
+  function skip(skipAll: boolean) {
     var newSet = [
       ...(workoutInfo.currentExerciseTimes as WorkoutExerciseTime[]),
     ];
-    var taskToUpdate = newSet.find((x) => !x.done);
-    if (taskToUpdate) {
-      taskToUpdate.done = true;
+    if (!skipAll) {
+      var taskToUpdate = newSet.find((x) => !x.done);
+      if (taskToUpdate) {
+        taskToUpdate.done = true;
+      }
+    } else {
+      newSet.forEach((x) => {
+        x.done = true;
+      });
     }
+
     if (newSet.filter((x) => !x.done).length === 0) {
       console.log("Exercise finished!");
       nextWorkout();
+    } else {
+      setWorkoutInfo((prevWorkoutInfo) => ({
+        ...prevWorkoutInfo,
+        currentExerciseTimes: newSet,
+      }));
+    }
+  }
+  function prev(prevAll: boolean) {
+    var newSet = [
+      ...(workoutInfo.currentExerciseTimes as WorkoutExerciseTime[]),
+    ];
+    if (!prevAll) {
+      newSet.reverse();
+      var taskToUpdate = newSet.find((x) => x.done);
+      newSet.reverse();
+      if (taskToUpdate) {
+        taskToUpdate.done = false;
+      }
+    } else {
+      newSet.forEach((x) => {
+        x.done = false;
+      });
+    }
+
+    if (newSet.filter((x) => x.done).length === 0) {
+      prevWorkout();
     } else {
       setWorkoutInfo((prevWorkoutInfo) => ({
         ...prevWorkoutInfo,
@@ -118,7 +174,7 @@ const WorkoutContainer = ({ schedule }: WorkoutContainerProps) => {
   if (nextExercise != null) {
     nextExerciseTag = (
       <>
-        <h3>Next:</h3>
+        <h3 className="standard-text">Next:</h3>
         <PrintExercise
           exercise={nextExercise as WorkoutExercise}
           isMain={false}
@@ -129,41 +185,85 @@ const WorkoutContainer = ({ schedule }: WorkoutContainerProps) => {
 
   return (
     <div
-      style={{
-        backgroundColor: background,
-        position: "absolute",
-        height: "100%",
-        width: "100%",
-      }}
+      className={`flex h-screen w-screen text-center ${
+        currentExerciseSet !== undefined
+          ? !currentExerciseSet?.isWork
+            ? "bg-cyan-300 dark:bg-blue-950"
+            : "bg-green-300 dark:bg-green-800"
+          : "bg-orange-500"
+      }`}
+      // style={{
+      //   backgroundColor: background,
+      //   position: "absolute",
+      //   height: "100%",
+      //   width: "100%",
+      // }}
     >
-      {!workoutInfo.isRunning ? (
-        <>
-          <Button onClick={startWorkout}>Start</Button>
-        </>
-      ) : (
-        <>
-          {workoutInfo.currentExerciseTimes?.length &&
-            workoutInfo.currentExerciseTimes?.length > 1 && (
-              <p>
-                {
-                  workoutInfo.currentExerciseTimes?.filter(
-                    (x) => !x.done && x.isWork
-                  ).length
-                }{" "}
-                Remaining
-              </p>
-            )}
-          <Timer
-            onFinish={onFinish}
-            exerciseSet={currentExerciseSet as WorkoutExerciseTime}
-          />
-          <PrintExercise
-            exercise={workoutInfo.currentExercise as WorkoutExercise}
-            isMain={true}
-          />
-          {nextExerciseTag}
-        </>
-      )}
+      <div className="m-auto">
+        {!workoutInfo.isRunning ? (
+          <>
+            <Button onClick={startWorkout}>
+              {<IoPlayOutline size="200" />}
+            </Button>
+          </>
+        ) : (
+          <>
+            {workoutInfo.currentExerciseTimes?.length &&
+              workoutInfo.currentExerciseTimes?.length > 1 && (
+                <p className="standard-text">
+                  {
+                    workoutInfo.currentExerciseTimes?.filter(
+                      (x) => !x.done && x.isWork
+                    ).length
+                  }{" "}
+                  Remaining
+                </p>
+              )}
+            <PrintExercise
+              exercise={workoutInfo.currentExercise as WorkoutExercise}
+              isMain={true}
+            />
+
+            <Timer
+              handleFinish={handleFinish}
+              exerciseSet={currentExerciseSet as WorkoutExerciseTime}
+            />
+
+            <div className="ml-4 mt-4">
+              <Button
+                onClick={() => {
+                  prev(true);
+                }}
+              >
+                <IoPlayBackOutline size={iconSize} />
+              </Button>
+              <Button
+                onClick={() => {
+                  prev(false);
+                }}
+              >
+                <IoPlaySkipBackOutline size={iconSize} />
+              </Button>
+              <Button
+                onClick={() => {
+                  skip(false);
+                }}
+              >
+                <IoPlaySkipForwardOutline size={iconSize} />
+              </Button>
+              <Button
+                onClick={() => {
+                  skip(true);
+                }}
+              >
+                <IoPlayForwardOutline size={iconSize} />
+              </Button>
+            </div>
+
+            {nextExerciseTag}
+          </>
+        )}
+      </div>
     </div>
   );
 };

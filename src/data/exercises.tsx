@@ -1,12 +1,12 @@
-import { WorkoutExercise } from "../interface/WorkoutInfo";
+import { Schedule, WorkoutExercise } from "../interface/WorkoutInfo";
 
-export const schedules = [
+export const schedules: Schedule[] = [
   {
-    Name: "Sara - Giorno 1",
-    Exercises: [
+    name: "Sara - Giorno 1",
+    exercises: [
       {
         name: "Warm up",
-        workSeconds: 60 * 5,
+        workSeconds: 60 * 4,
         restSeconds: 0,
         times: 1,
         exercises: ["Esercizi per riscaldarsi (polsi, spalle, gomiti)"],
@@ -17,27 +17,99 @@ export const schedules = [
         restSeconds: 0,
         times: 10,
       },
-      { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 3, times: 1 },
       {
         name: "Jump Squat +6kg",
         workSeconds: 120,
         restSeconds: 0,
         times: 10,
-        exercises: ["10rep - Squat +6kg", "5rep - Curl bicipiti +3kg", "5rep - Alzate laterali +3kg per braccio"],
+        exercises: [
+          "10rep - Squat +6kg",
+          "5rep - Curl bicipiti +3kg",
+          "5rep - Alzate laterali +3kg per braccio",
+        ],
       },
-      { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 3, times: 1 },
       {
         name: "Jump Squat +6kg",
         workSeconds: 120,
         restSeconds: 0,
         times: 10,
-        exercises: ["4rep - HipDip +6kg per gamba", "20s - Plank", "10rep - Stacchi rumeni +6kg ed elastici"],
+        exercises: [
+          "4rep - HipDip +6kg per gamba",
+          "20s - Plank",
+          "10rep - Stacchi rumeni +6kg ed elastici",
+        ],
       },
-    ]
-  },{
-
-    Name: "Davide - Lunedì",
-    Exercises: [
+      {
+        name: "Cool down",
+        workSeconds: 60 * 4,
+        restSeconds: 0,
+        times: 1,
+      },
+    ],
+  },
+  {
+    name: "Sara - Giorno 2",
+    exercises: [
+      {
+        name: "Warm up",
+        workSeconds: 60 * 4,
+        restSeconds: 0,
+        times: 1,
+        exercises: ["Esercizi per riscaldarsi (polsi, spalle, gomiti)"],
+      },
+      {
+        name: "Superset EMOM",
+        workSeconds: 120,
+        restSeconds: 0,
+        times: 10,
+        exercises: [
+          "10rep - x gamba Donkey kicks 3s tenuta elastico corto",
+          "15s - Plank",
+        ],
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
+      {
+        name: "8rep - Glute bridges +6kg + elastico lungo",
+        workSeconds: 60,
+        restSeconds: 0,
+        times: 10,
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
+      {
+        name: "Superset",
+        workSeconds: 60,
+        restSeconds: 0,
+        times: 10,
+        exercises: [
+          "4rep - Tricipiti alzata dietro alle spalle",
+          "3rep (dal 6° 2rep) - Piegamenti ginocchia a terra",
+        ],
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
+      {
+        name: "Superset",
+        workSeconds: 120,
+        restSeconds: 0,
+        times: 10,
+        exercises: [
+          "20rep - Squat +6kg x20",
+          "10rep - Crunch (lenti in tenuta) ",
+          "8rep - Superman (in tenuta)",
+        ],
+      },
+      {
+        name: "Cool down",
+        workSeconds: 60 * 4,
+        restSeconds: 0,
+        times: 1,
+      },
+    ],
+  },
+  {
+    name: "Davide - Lunedì",
+    exercises: [
       {
         name: "Warm up",
         workSeconds: 60 * 5,
@@ -49,7 +121,7 @@ export const schedules = [
         name: "Tuck front lever",
         workSeconds: 10,
         restSeconds: 50,
-        times: 5,
+        times: 4,
       },
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
       {
@@ -72,7 +144,7 @@ export const schedules = [
         name: "Pushup +6Kg 25rep",
         workSeconds: 60,
         restSeconds: 0,
-        times: 5,
+        times: 4,
       },
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 4, times: 1 },
       {
@@ -96,7 +168,7 @@ export const schedules = [
         times: 10,
       },
       {
-        name: "Dip x10",
+        name: "Dip x12",
         workSeconds: 60,
         restSeconds: 0,
         times: 10,
@@ -104,8 +176,73 @@ export const schedules = [
     ],
   },
   {
-    Name: "Davide - Venerdì",
-    Exercises: [
+    name: "Davide - Mercoledì",
+    exercises: [
+      {
+        name: "Warm up",
+        workSeconds: 60 * 5,
+        restSeconds: 0,
+        times: 1,
+        exercises: ["Esercizi per riscaldarsi (polsi, spalle, gomiti)"],
+      },
+      {
+        name: "Superset",
+        workSeconds: 60 * 2,
+        restSeconds: 0,
+        times: 10,
+        exercises: ["- 6rep Chinup", "- 4rep Handstand Pushup muro"],
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 5, times: 1 },
+      {
+        name: "Superset",
+        workSeconds: 60 * 2,
+        restSeconds: 0,
+        times: 6,
+        exercises: [
+          "- 6rep Curl anelli",
+          "- 8rep Australian Pullup",
+          "- 4rep x gamba Pistol squat anelli",
+        ],
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 4, times: 1 },
+      {
+        name: "Dip anelli 10rep",
+        workSeconds: 60,
+        restSeconds: 0,
+        times: 5,
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 3, times: 1 },
+      {
+        name: "Frontlever Dream Machine",
+        workSeconds: 15,
+        restSeconds: 45,
+        times: 7,
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
+      {
+        name: "Planche Dream Machine",
+        workSeconds: 15,
+        restSeconds: 45,
+        times: 7,
+      },
+      { name: "Rest", workSeconds: 0, restSeconds: 60 * 3, times: 1 },
+      {
+        name: "Pullup 5rep",
+        workSeconds: 60,
+        restSeconds: 0,
+        times: 10,
+      },
+      {
+        name: "Dip 10rep",
+        workSeconds: 60,
+        restSeconds: 0,
+        times: 10,
+      },
+    ],
+  },
+  {
+    name: "Davide - Venerdì",
+    exercises: [
       {
         name: "Warm up",
         workSeconds: 60 * 5,
@@ -128,7 +265,7 @@ export const schedules = [
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 5, times: 1 },
       {
         name: "Superset",
-        workSeconds: 80,
+        workSeconds: 75,
         restSeconds: 0,
         times: 8,
         exercises: [
@@ -140,19 +277,19 @@ export const schedules = [
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 5, times: 1 },
       {
         name: "Superset",
-        workSeconds: 60 * 1.2,
+        workSeconds: 60,
         restSeconds: 0,
         times: 8,
         exercises: [
-          "Archer pushup 4rep xbraccio",
-          "Diamond pushup 6rep",
-          "Australian pullup anelli 8rep",
+          "- 4rep xbraccio Archer pushup",
+          "- 6rep Diamond pushup",
+          "- 8rep Australian pullup anelli",
         ],
       },
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
       {
         name: "Muscle up anelli",
-        workSeconds: 60 * 1,
+        workSeconds: 60,
         restSeconds: 0,
         times: 6,
       },
@@ -173,14 +310,14 @@ export const schedules = [
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 3, times: 1 },
       {
         name: "Pullup x 6",
-        workSeconds: 60 * 1,
+        workSeconds: 60,
         restSeconds: 0,
         times: 10,
       },
-      { name: "Rest", workSeconds: 0, restSeconds: 60 * 1, times: 1 },
+      { name: "Rest", workSeconds: 0, restSeconds: 60, times: 1 },
       {
         name: "Dip x 12",
-        workSeconds: 20,
+        workSeconds: 60,
         restSeconds: 0,
         times: 10,
       },

@@ -6,32 +6,42 @@ import {
 } from "../interface/WorkoutInfo";
 import { formatSeconds } from "../utilities/time";
 import useSound from "use-sound";
-import timerSound from "../assets/audio/timer.mp3";
+import tickShortSound from "../assets/audio/tick-short.wav";
+import tickLongSound from "../assets/audio/tick-long.wav";
 import Button from "./Button";
+import { IoPlayOutline, IoPauseOutline } from "react-icons/io5";
 
 interface TimerProps {
   exerciseSet: WorkoutExerciseTime;
-  onFinish: () => void;
+  handleFinish: () => void;
 }
 
-const Timer: React.FC<TimerProps> = ({ exerciseSet, onFinish }) => {
+const Timer: React.FC<TimerProps> = ({ exerciseSet, handleFinish }) => {
   const [seconds, setSeconds] = useState<number>(exerciseSet.seconds);
   const [isInPause, setIsInPause] = useState(false);
 
-  const [play] = useSound(timerSound);
+  const [playShort] = useSound(tickShortSound);
+  const [playLong] = useSound(tickLongSound);
 
   useEffect(() => {
     setSeconds(exerciseSet.seconds);
   }, [exerciseSet]);
 
   useEffect(() => {
-    if (seconds <= 0) {
-      onFinish();
-      return;
+    if (!exerciseSet.isWork && seconds === 10) {
+      playShort();
+      setTimeout(() => playShort(), 300);
     }
 
-    if (seconds == 3) {
-      play();
+    if (seconds === 3 || seconds === 2 || seconds === 1) {
+      playShort();
+    } else if (seconds === 0) {
+      playLong();
+    }
+
+    if (seconds <= 0) {
+      handleFinish();
+      return;
     }
 
     const timerId = setInterval(() => {
@@ -53,22 +63,21 @@ const Timer: React.FC<TimerProps> = ({ exerciseSet, onFinish }) => {
     });
   }
 
-  function nextWorkout() {
-    if (isInPause) setIsInPause(false);
-    onFinish();
-  }
-
   return (
-    <div>
+    <div className="text-center">
       <audio ref={audioRef} src="/src/assets/audio/timer.mp3" preload="auto" />
-      <p>{formatSeconds(seconds)}</p>
+      <p className="text-9xl font-bold text-black dark:text-white">
+        {formatSeconds(seconds)}
+      </p>
 
-      <div className="ml-4">
-        <Button onClick={togglePlay}>{isInPause ? "Play" : "Pause"}</Button>
-      </div>
-
-      <div className="ml-4 mt-4">
-        <Button onClick={nextWorkout}>Skip</Button>
+      <div className="">
+        <Button onClick={togglePlay}>
+          {isInPause ? (
+            <IoPlayOutline size="80" />
+          ) : (
+            <IoPauseOutline size="80" />
+          )}
+        </Button>
       </div>
     </div>
   );
