@@ -15,6 +15,9 @@ import {
 } from "../interface/WorkoutInfo";
 import PrintExercise from "./PrintExercise";
 import Button from "./Button";
+import useSound from "use-sound";
+import tickShortSound from "../assets/audio/tick-short.wav";
+import tickLongSound from "../assets/audio/tick-long.wav";
 
 interface WorkoutContainerProps {
   schedule: WorkoutExercise[];
@@ -76,6 +79,9 @@ const WorkoutContainer = ({ schedule }: WorkoutContainerProps) => {
   const currentExerciseSet = workoutInfo.currentExerciseTimes?.find(
     (x) => !x.done
   );
+
+  const [playShort] = useSound(tickShortSound);
+  const [playLong] = useSound(tickLongSound);
 
   function startWorkout() {
     setWorkoutInfo((prevWorkoutInfo) => ({
@@ -225,6 +231,8 @@ const WorkoutContainer = ({ schedule }: WorkoutContainerProps) => {
             />
 
             <Timer
+            playShort={playShort}
+            playLong={playLong}
               handleFinish={handleFinish}
               exerciseSet={currentExerciseSet as WorkoutExerciseTime}
             />

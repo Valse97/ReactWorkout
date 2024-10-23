@@ -5,23 +5,23 @@ import {
   WorkoutExerciseTime,
 } from "../interface/WorkoutInfo";
 import { formatSeconds } from "../utilities/time";
-import useSound from "use-sound";
-import tickShortSound from "../assets/audio/tick-short.wav";
-import tickLongSound from "../assets/audio/tick-long.wav";
 import Button from "./Button";
 import { IoPlayOutline, IoPauseOutline } from "react-icons/io5";
 
 interface TimerProps {
   exerciseSet: WorkoutExerciseTime;
   handleFinish: () => void;
+  playShort: any,
+  playLong: any
 }
 
-const Timer: React.FC<TimerProps> = ({ exerciseSet, handleFinish }) => {
+const Timer: React.FC<TimerProps> = ({ exerciseSet, handleFinish, playShort, playLong }) => {
   const [seconds, setSeconds] = useState<number>(exerciseSet.seconds);
   const [isInPause, setIsInPause] = useState(false);
 
-  const [playShort] = useSound(tickShortSound);
-  const [playLong] = useSound(tickLongSound);
+  useEffect(() => {
+    playShort({ forceSoundEnabled: false });
+  }, []);
 
   useEffect(() => {
     setSeconds(exerciseSet.seconds);
