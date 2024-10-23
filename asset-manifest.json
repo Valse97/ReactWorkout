@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/ReactWorkout/static/css/main.881fb4cf.css",
-    "main.js": "/ReactWorkout/static/js/main.b818f78a.js",
+    "main.css": "/ReactWorkout/static/css/main.4349652a.css",
+    "main.js": "/ReactWorkout/static/js/main.026194dc.js",
     "static/js/885.85e68ec3.chunk.js": "/ReactWorkout/static/js/885.85e68ec3.chunk.js",
     "static/js/453.5b2eae68.chunk.js": "/ReactWorkout/static/js/453.5b2eae68.chunk.js",
     "static/media/tick-long.wav": "/ReactWorkout/static/media/tick-long.512cae6d12c670733675.wav",
     "static/media/tick-short.wav": "/ReactWorkout/static/media/tick-short.d20692d4235f33dd2551.wav",
     "index.html": "/ReactWorkout/index.html",
-    "main.881fb4cf.css.map": "/ReactWorkout/static/css/main.881fb4cf.css.map",
-    "main.b818f78a.js.map": "/ReactWorkout/static/js/main.b818f78a.js.map",
+    "main.4349652a.css.map": "/ReactWorkout/static/css/main.4349652a.css.map",
+    "main.026194dc.js.map": "/ReactWorkout/static/js/main.026194dc.js.map",
     "885.85e68ec3.chunk.js.map": "/ReactWorkout/static/js/885.85e68ec3.chunk.js.map",
     "453.5b2eae68.chunk.js.map": "/ReactWorkout/static/js/453.5b2eae68.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.881fb4cf.css",
-    "static/js/main.b818f78a.js"
+    "static/css/main.4349652a.css",
+    "static/js/main.026194dc.js"
   ]
 }
