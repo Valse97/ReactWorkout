@@ -112,7 +112,7 @@ export const schedules: Schedule[] = [
     exercises: [
       {
         name: "Warm up",
-        workSeconds: 60 * 5,
+        workSeconds: 60 * 4,
         restSeconds: 0,
         times: 1,
         exercises: ["Esercizi per riscaldarsi (polsi, spalle, gomiti)"],
@@ -162,16 +162,16 @@ export const schedules: Schedule[] = [
       },
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 4, times: 1 },
       {
-        name: "Pullup x6",
+        name: "Pullup x8",
         workSeconds: 60,
         restSeconds: 0,
-        times: 10,
+        times: 5,
       },
       {
-        name: "Dip x12",
+        name: "Dip x16",
         workSeconds: 60,
         restSeconds: 0,
-        times: 10,
+        times: 5,
       },
     ],
   },
@@ -180,7 +180,7 @@ export const schedules: Schedule[] = [
     exercises: [
       {
         name: "Warm up",
-        workSeconds: 60 * 5,
+        workSeconds: 60 * 4,
         restSeconds: 0,
         times: 1,
         exercises: ["Esercizi per riscaldarsi (polsi, spalle, gomiti)"],
@@ -245,8 +245,8 @@ export const schedules: Schedule[] = [
     exercises: [
       {
         name: "Warm up",
-        workSeconds: 60 * 5,
-        restSeconds: 0,
+        workSeconds: 0,
+        restSeconds: 60 * 4,
         times: 1,
         exercises: ["Pushup, Pullup, Dip, Squat"],
       },
@@ -286,13 +286,6 @@ export const schedules: Schedule[] = [
           "- 8rep Australian pullup anelli",
         ],
       },
-      { name: "Rest", workSeconds: 0, restSeconds: 60 * 2, times: 1 },
-      {
-        name: "Muscle up anelli",
-        workSeconds: 60,
-        restSeconds: 0,
-        times: 6,
-      },
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 3, times: 1 },
       {
         name: "Frontlever Dream Machine",
@@ -309,17 +302,17 @@ export const schedules: Schedule[] = [
       },
       { name: "Rest", workSeconds: 0, restSeconds: 60 * 3, times: 1 },
       {
-        name: "Pullup x 6",
+        name: "Pullup x 8",
         workSeconds: 60,
         restSeconds: 0,
-        times: 10,
+        times: 5,
       },
       { name: "Rest", workSeconds: 0, restSeconds: 60, times: 1 },
       {
-        name: "Dip x 12",
+        name: "Dip x 16",
         workSeconds: 60,
         restSeconds: 0,
-        times: 10,
+        times: 5,
       },
     ],
   },

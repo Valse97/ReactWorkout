@@ -24,7 +24,10 @@ const PrintExercise: React.FC<PrintExerciseProps> = ({ exercise, isMain }) => {
       <h4 className={`${isMain ? "text-3xl" : "text-xl"} standard-text`}>
         {exercise.name}{" "}
         {formatSeconds_letter(
-          exercise.workSeconds > 0 ? exercise.workSeconds : exercise.restSeconds
+          exercise.workSeconds > 0
+            ? exercise.workSeconds
+            : exercise.restSeconds,
+          true
         )}{" "}
         {exercise.times > 1 ? "x " + exercise.times : ""}
       </h4>

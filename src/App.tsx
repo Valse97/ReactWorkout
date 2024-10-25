@@ -16,7 +16,8 @@ function getTotalSeconds(schedule: Schedule): number {
   schedule.exercises.forEach((exercise) => {
     totalSeconds +=
       exercise.workSeconds * exercise.times +
-      exercise.restSeconds * (exercise.times - 1);
+      exercise.restSeconds *
+        (exercise.workSeconds == 0 ? exercise.times : exercise.times - 1);
   });
   return totalSeconds; // in seconds, e.g., 3600 seconds = 1 hour.
 }
@@ -57,7 +58,7 @@ function App() {
             <h1 className="text-4xl mb-3 font-bold text-center standard-text">
               My Workout App
             </h1>
-            <p className="mb-3 text-center standard-text">v. 1.3</p>
+            <p className="mb-3 text-center standard-text">v. 1.4</p>
             <div className="">
               {schedules.map((schedule, index) => (
                 <div key={index} className="text-center">
@@ -71,7 +72,7 @@ function App() {
                   >
                     {schedule.name +
                       " - " +
-                      formatSeconds_letter(getTotalSeconds(schedule))}
+                      formatSeconds_letter(getTotalSeconds(schedule), false)}
                   </Button>
                 </div>
               ))}
